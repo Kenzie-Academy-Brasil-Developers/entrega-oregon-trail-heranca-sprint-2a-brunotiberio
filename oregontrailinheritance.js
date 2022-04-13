@@ -1,3 +1,5 @@
+//Atividade começa na linha 129
+
 class Traveler {
     constructor(name){
         
@@ -124,7 +126,7 @@ class Wagon {
         }
     }
 
-    //atividade começa aqui
+////////////////////////////////////////atividade começa aqui///////////////////////////////////////////
 
 class Hunter extends Traveler{
     constructor(name){
@@ -158,7 +160,7 @@ class Hunter extends Traveler{
 class Doctor extends Traveler{
     constructor(name){
         super(name)        
-    }
+    }git a
 
     heal(traveler){
         //criar o método, parece mais facil
