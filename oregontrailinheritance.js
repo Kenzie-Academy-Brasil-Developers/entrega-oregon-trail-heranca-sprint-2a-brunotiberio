@@ -98,7 +98,8 @@ class Wagon {
     join(viajante){
 
         if(this.getAvailableSeatCount() > 0){
-            this._passengers.push(viajante)            
+            
+            this._passengers.push(viajante)        
         }
     }    
 
@@ -143,16 +144,35 @@ class Hunter extends Traveler{
 
     eat(){
         
-        if(this.food < 2){
+        if(this.food >= 2){
+            this.food -= 2
+
+        } else {
+            
             this.food = 0
             this.isHealthy = false
-        } else {
-            this.food -= 2
         }
+        
+        
+            
     }
 
     giveFood(traveler, numOfFoodUnits){
-        // criar o método, esse daqui vai ser pegado
+
+        //tirando comida transferida da posse do hunter
+
+        let comidaAtual = this.food
+
+
+        if(this.food >= numOfFoodUnits){
+            this.food -= numOfFoodUnits
+
+            traveler._food += comidaAtual
+
+        } else {
+            this.food = comidaAtual
+        }
+        
     }
 
 }
@@ -160,10 +180,15 @@ class Hunter extends Traveler{
 class Doctor extends Traveler{
     constructor(name){
         super(name)        
-    }git a
+    }
 
-    heal(traveler){
-        //criar o método, parece mais facil
+
+
+    heal(traveler){        
+
+        if(traveler._isHealthy == false){            
+            traveler._isHealthy = true
+        }
     }
 }
 
@@ -181,40 +206,40 @@ let juan = new Traveler('Juan');
 let drsmith = new Doctor('Dr. Smith');
 let sarahunter = new Hunter('Sara');
 let maude = new Traveler('Maude');
- 
+
 console.log(`#1: There should be 4 available seats. Actual: ${wagon.getAvailableSeatCount()}`);
- 
+
 wagon.join(henrietta);
 console.log(`#2: There should be 3 available seats. Actual: ${wagon.getAvailableSeatCount()}`);
- 
+
 wagon.join(juan);
 wagon.join(drsmith);
-wagon.join(sarahunter);
- 
+wagon.join(sarahunter); 
+
 wagon.join(maude); // Não tem espaço para ela!
 console.log(`#3: There should be 0 available seats. Actual: ${wagon.getAvailableSeatCount()}`);
- 
+
 console.log(`#4: There should be 5 total food. Actual: ${wagon.totalFood()}`);
- 
+
 sarahunter.hunt(); // pega mais 5 comidas
 drsmith.hunt();
- 
+
 console.log(`#5: There should be 12 total food. Actual: ${wagon.totalFood()}`);
- 
+
 henrietta.eat();
 sarahunter.eat();
 drsmith.eat();
 juan.eat();
 juan.eat(); // juan agora está doente (sick)
- 
+
 console.log(`#6: Quarantine should be true. Actual: ${wagon.shouldQuarantine()}`);
 console.log(`#7: There should be 7 total food. Actual: ${wagon.totalFood()}`);
- 
+
 drsmith.heal(juan);
 console.log(`#8: Quarantine should be false. Actual: ${wagon.shouldQuarantine()}`);
- 
+
 sarahunter.giveFood(juan, 4);
 sarahunter.eat(); // Ela só tem um, então ela come e fica doente
- 
+
 console.log(`#9: Quarantine should be true. Actual: ${wagon.shouldQuarantine()}`);
 console.log(`#10: There should be 6 total food. Actual: ${wagon.totalFood()}`);
