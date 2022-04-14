@@ -118,7 +118,7 @@ class Wagon {
 
         this._passengers.forEach((passenger) => {
 
-            contadorComida += passenger.food            
+            contadorComida += passenger.food         
             
             })
 
@@ -159,41 +159,42 @@ class Hunter extends Traveler{
 
     giveFood(traveler, numOfFoodUnits){
 
-        //tirando comida transferida da posse do hunter
-
-        let comidaAtual = this.food
-
+        //verifica hunter tem a quantidade para transferir ao viajante
 
         if(this.food >= numOfFoodUnits){
+
+            //se positivo, retira do hunter
+
             this.food -= numOfFoodUnits
 
-            traveler._food += comidaAtual
+            //e passa para o viajante
 
-        } else {
-            this.food = comidaAtual
+            traveler._food += numOfFoodUnits
+
         }
-        
-    }
 
+        //caso contrário, nada acontece feijoada        
+    }
 }
+
 
 class Doctor extends Traveler{
     constructor(name){
         super(name)        
     }
 
+    //cura os viajantes
+    heal(traveler){
+        
+        //verifica se o isHealthy do viajante é false
 
-
-    heal(traveler){        
-
-        if(traveler._isHealthy == false){            
+        if(traveler._isHealthy == false){    
+            
+            //se for, troca para true
             traveler._isHealthy = true
         }
     }
 }
-
-
-
 
 
 
